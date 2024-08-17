@@ -14,9 +14,14 @@ fn hello(name: &str) -> String {
     format!("Hello, {}!", name)
 }
 
+#[get("/clicked")]
+fn handle_click() -> &'static str {
+    "<h3>Ouch!</h3>"
+}
+
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![index, hello])
+        .mount("/", routes![index, hello, handle_click])
         .mount("/static", FileServer::from("./static"))
 }

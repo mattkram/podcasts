@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/static/css/bootstrap-4-6-0.min.css" crossorigin="anonymous">
 </head>
 <body>
 <h1>Hello world!</h1>
+<button hx-get="/clicked" hx-swap="outerHTML">
+    Boop Me
+</button>
+
+<script src="/static/js/htmx.min.js"></script>
+<script src="/static/js/jquery-3.5.1.slim.min.js"></script>
+<script src="/static/js/bootstrap-4.6.1.min.js"></script>
 </body>
 </html>
