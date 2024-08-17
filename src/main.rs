@@ -1,8 +1,7 @@
-// Alternate which will expose all macros globally
-// See note in: https://rocket.rs/guide/v0.5/overview/#routing
-// #[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
+
 use rocket::fs::{FileServer, NamedFile};
-use rocket::{get, launch, routes};
 use std::path::Path;
 
 #[get("/")]
