@@ -1,17 +1,15 @@
 // Alternate which will expose all macros globally
 // See note in: https://rocket.rs/guide/v0.5/overview/#routing
 // #[macro_use] extern crate rocket;
-use rocket::fs::FileServer;
+use rocket::fs::{FileServer, NamedFile};
 use rocket::{get, launch, routes};
+use std::path::Path;
 
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
-}
-
-#[get("/hello/<name>")]
-fn hello(name: &str) -> String {
-    format!("Hello, {}!", name)
+async fn index() -> Option<NamedFile> {
+    NamedFile::open(Path::new("templates/index.html"))
+        .await
+        .ok()
 }
 
 #[get("/clicked")]
@@ -22,6 +20,6 @@ fn handle_click() -> &'static str {
 #[launch]
 fn rocket() -> _ {
     rocket::build()
-        .mount("/", routes![index, hello, handle_click])
+        .mount("/", routes![index, handle_click])
         .mount("/static", FileServer::from("./static"))
 }
