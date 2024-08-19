@@ -11,9 +11,15 @@ async fn index() -> Option<NamedFile> {
         .ok()
 }
 
-#[get("/clicked")]
-fn handle_click() -> &'static str {
-    "<h3>Ouch!</h3>"
+#[get("/clicked?<name>")]
+fn handle_click(name: Option<&str>) -> String {
+    let mut _name = "Dude";
+
+    match name {
+        Some(n) => _name = n,
+        _ => (),
+    }
+    format!("Ouch, {}!", _name)
 }
 
 #[launch]
