@@ -1,14 +1,13 @@
 #[macro_use]
 extern crate rocket;
 
-use rocket::fs::{FileServer, NamedFile};
-use std::path::Path;
+use rocket::fs::FileServer;
+use rocket_dyn_templates::context;
+use rocket_dyn_templates::Template;
 
 #[get("/")]
-async fn index() -> Option<NamedFile> {
-    NamedFile::open(Path::new("templates/index.html"))
-        .await
-        .ok()
+fn index() -> Template {
+    Template::render("index", context! {})
 }
 
 #[get("/clicked?<name>")]
@@ -27,4 +26,5 @@ fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index, handle_click])
         .mount("/static", FileServer::from("./static"))
+        .attach(Template::fairing())
 }
