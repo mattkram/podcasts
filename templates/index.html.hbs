@@ -12,6 +12,12 @@
     Boop Me
 </button>
 
+<ul>
+  {{#each records}}
+    <li>{{this.content}}</li>
+  {{/each}}
+</ul>
+
 <script src="/static/js/htmx.min.js"></script>
 <script src="/static/js/jquery-3.5.1.slim.min.js"></script>
 <script src="/static/js/bootstrap-4.6.1.min.js"></script>
